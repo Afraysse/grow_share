@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>growshare || {% block title %} put title here {% endblock %}</title>
+
+    <!-- CSS/Custom Styling -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand|Vollkorn" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Sansita+One" rel="stylesheet">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+</head>
+
+<body>
+
+<!-- CSS for landing view --> 
+
+<style>
+
+.jumbotron {
+    text-align: center;
+    padding: 100px;
+    background-color: #143C22;
+}
+
+h1, h6, a, i, input {
+    font-family: 'Sansita One';
+    color: #7EB993;
+}
+
+h4 {
+    font-family: 'Open Sans', sans-serif;
+    color: #7EB993;
+}
+
+button {
+    font-family: 'Sansita One';
+    color: #143C22;
+}
+
+a {
+    color: #7EB993;
+}
+
+.footer {
+    font-family: 'Sansita One';
+    color: #143C22;
+}
+
+body {
+    background-color: white;
+}
+
+</style>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-light bg-faded">
+    <a class="navbar-brand" href="#">GrowShare</a>
+        <nav class="nav navbar-nav pull-xs-right" id="login-tog">
+    </nav>
+</nav>
+
+<!-- JUMBOTRON -->
+<div class="authentication">
+    <div class="jumbotron">
+        <div class="jumbotron-header">
+            <h1 style="color: #7EB993">GrowShare</h1>
+        </div>
+        <div class="jumbotron-subheader">
+            <h4>Grow what you <i>love</i>. Share what you <i>grow</i>.</h4>
+        </div>
+            <br>
+                <form action='/login' method='post'>
+                    <center><input type="email" name="email" class="form-control" style="width: 400px" placeholder="email"></center>
+                    <center><input type="password" name="password" class="form-control" style="width: 400px" placeholder="password"></center>
+                    <br>
+                    <center><button style="width: 200px" class="btn btn-outline-secondary" type="submit">Login</button></center>
+                </form>
+                <br>
+
+<!-- REGISTER MODAL TRIGGER -->
+ 
+<button type="button" style="width: 200px" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">Register</button>
+</div><!-- /. Jumbotron -->
+</div><!-- /. authentication -->
+
+<!-- REGISTER MODAL -->
+
+<div class="authentication">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Register Here!</h4>
+          </div>
+          <div class="modal-body">
+            <form action="/register" method='post'>
+                <label for="email"> Email address </label>
+                    <input for="email" class="form-control" id="email" name="signup_email" placeholder="example@gmail.com" required autofocus>
+                    <br>
+                <label for="password"> Password </label>
+                    <input type="password" class="form-control" id="password" name="signup_password" placeholder="************" required>
+                    <br>
+                <label for="firstname"> First name</label>
+                    <input type="text" class="form-control" id="firstname" name="first_name" placeholder="Happy" required>
+                    <br>
+                <label for="lastname"> Last name</label>
+                    <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Muffin" required>
+                    <br>
+                <label for="description"> Tell us about yourself!</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="I like buttons.">
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="auth btn btn-default" value="Register">
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+  <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+      <p class="footer-copyright">GrowShare &copy; 2016.</p>
+    </div>
+</footer>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

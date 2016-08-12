@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>growshare || {% block title %} put title here {% endblock %}</title>
+
+    <!-- CSS/Custom Styling -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand|Vollkorn" rel="stylesheet">
+
+<style>
+
+#map {
+  width: 100%;
+  height: 500px;
+}
+
+.jumbotron {
+    text-align: center;
+    padding: 100px;
+    background-color: #143C22;
+}
+
+h1, h6, a, i, input {
+    font-family: 'Sansita One';
+    color: #7EB993;
+}
+
+h4 {
+    font-family: 'Open Sans', sans-serif;
+    color: #7EB993;
+}
+
+button {
+    font-family: 'Sansita One';
+    color: #143C22;
+}
+
+a {
+    color: #7EB993;
+}
+
+.footer {
+    font-family: 'Sansita One';
+    color: #143C22;
+}
+
+body {
+    background-color: white;
+}
+
+</style>
+
+</head>
+
+<body>
+    
+<!-- Navigation Bar Whole -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">GrowShare</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="#"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Foods</a></li>
+            <li><a href="#">Help</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+{% block content %} put content here {% endblock %}
+
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
