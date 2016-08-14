@@ -16,6 +16,7 @@
 }
 
 
+
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -23,111 +24,39 @@
             <div id="map" class="col-sm-8 col-md-8 pull-right"></div>
         </div>
         <div class="col-sm-4 col-md-4">
-            <div class="panel panel-default">
+            <div class="panel-group">
+              <div class="panel panel-default">
                 <div class="panel-heading">
-                    <center><h3 class="panel-title">I'm Looking For:</h3><center>
-                        <br>
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                          <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              Eggs
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                          <div class="panel-body">
-                            <!-- FORM FOR EGGS -->
-                            <form action="/#" method="post">
-                                <div class="box">
-                                    <div class="box-title center"><b>Distance</b></div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 1
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 5
-                                    </label>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 10
-                                    </label> 
-                                </div>
-
-                                 
-
-
-
-
-                            </form><!-- /. form -->
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo">
-                          <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              Meat
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div class="panel-body">
-                            Panel Body.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
-                          <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                              Vegetables
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div class="panel-body">
-                            Panel Body.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingFour">
-                          <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                              Fruit
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                          <div class="panel-body">
-                            Panel Body.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingFive">
-                          <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                              Other
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                          <div class="panel-body">
-                            Panel Body.
-                          </div>
-                        </div>
-                      </div>
+                  <center><div class="panel-title"><i>Eat local! Eat fresh!</i></div></center>
+                  <br>
+                  <form action="/#" method="post">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">What can we help you find?</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex: eggs; chicken; lamb">
                     </div>
-                </div>
-
-
-
- 
+                    <div class="form-group">
+                      <label for="keySearchWords">Narrow Down Your Search</label>
+                      <input type="keySearch" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
+                    </div>
+                    <div class="form-group">
+                      <label for="quantityInput">Quantity</label>
+                      <input type="keySearch" class="form-control" id="quantityInput" placeholder="ex: 1 dozen, 10lbs.">
+                    </div>
+                     <div class="form-group">
+                      <label for="distanceSelect">Distance (in Miles)</label>
+                      <select class="form-control" id="distanceSelect">
+                        <option>1</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50+</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <center><button type="submit" class="btn btn-primary btn-block">Submit</button></center>
+                    </div>
+                  </form>
+                  
 
 <!-- GOOGLE MAP DISPLAY -->
 <!-- <div id="map"></div>  -->
@@ -136,19 +65,5 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACmSi9MJVDPc18DJ_PFZkBzulowGn_g8A&callback=initMap">
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
 {% endblock %}
 </html>
