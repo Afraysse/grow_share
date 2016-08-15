@@ -15,55 +15,143 @@
     color: #143C22;
 }
 
-
-
 </style>
+
+<script>
+  function initMap() {
+
+  var styledMapType = new google.maps.StyledMapType(
+    [
+      { 
+        stylers: [
+          { hue: '#00ffe6'},
+          { saturation: -20 }
+        ]
+      }, {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [
+          { lightness: 100},
+          { visibility: 'simplified'}
+        ]
+      }, {
+        featureType: 'road',
+        elementType: 'labels',
+        stylers: [
+          {visibility: 'off'}
+        ]
+      }
+    ],
+    {name: 'Styled Map'});
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    scrollwheel: true,
+    zoom: 14,
+    zoomControl: true,
+    panControl: false,
+    mapTypeControlOptions: {
+      mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                    'styled_map']
+    }
+
+  });
+
+  var currentLocIcon = {
+    path: fontawesome.markers.MAP_MARKER,
+    strokeColor: '#fcf400',
+    strokeOpacity: 1,
+    strokeWeight: 3,
+    fillColor: '#fcf400',
+    fillOpacity: 0.8,
+    scale: 1.4
+  }
+
+  var addTagIcon = {url: '/static/img/#'}
+
+
+  // ASSOCIATE STYLED MAP TO MAP ID
+
+  map.mapTypes.set('styled_map', styledMapType);
+  map.setMapTypeId('styled_map');
+
+  // SET GEOLOCATION FOR USER
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng( 
+        position.coords.latitude,
+        position.coords.longitude);
+
+      map.setCenter(pos);
+
+      var geolocationMarker = createMarker(pos, currentLocIcon)
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('found you!');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // BROWSER DOESN'T SUPPORT GEOLOCATION
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+</script>
+
 <div class="container-fluid">
     <div class="row">
-        <div id="map-container" class="fluid col-sm-8 col-md-8 pull-right">
-            <div id="map" class="col-sm-8 col-md-8 pull-right"></div>
-        </div>
+      <div id="map-container" class="fluid col-sm-8 col-md-8 pull-right">
+        <div id="map" class="col-sm-8 col-md-8 pull-right"></div>
+      </div>
         <div class="col-sm-4 col-md-4">
             <div class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <center><div class="panel-title"><i>Eat local! Eat fresh!</i></div></center>
-                  <br>
-                  <form action="/#" method="post">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">What can we help you find?</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex: eggs; chicken; lamb">
-                    </div>
-                    <div class="form-group">
-                      <label for="keySearchWords">Narrow Down Your Search</label>
-                      <input type="keySearch" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
-                    </div>
-                    <div class="form-group">
-                      <label for="quantityInput">Quantity</label>
-                      <input type="keySearch" class="form-control" id="quantityInput" placeholder="ex: 1 dozen, 10lbs.">
-                    </div>
-                     <div class="form-group">
-                      <label for="distanceSelect">Distance (in Miles)</label>
-                      <select class="form-control" id="distanceSelect">
-                        <option>1</option>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>50+</option>
-                      </select>
-                    </div>
-                    <div class="modal-footer">
-                      <center><button type="submit" class="btn btn-primary btn-block">Submit</button></center>
-                    </div>
-                  </form>
+                    <br>
+                      <form action="/#" method="post">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">What can we help you find?</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex: eggs; chicken; lamb">
+                        </div>
+                          <div class="form-group">
+                            <label for="keySearchWords">Narrow Down Your Search</label>
+                              <input type="keySearch" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
+                          </div>
+                            <div class="form-group">
+                              <label for="quantityInput">Quantity</label>
+                                <input type="keySearch" class="form-control" id="quantityInput" placeholder="ex: 1 dozen, 10lbs.">
+                            </div>
+                            <div class="form-group">
+                              <label for="distanceSelect">Distance (in Miles)</label>
+                                <select class="form-control" id="distanceSelect">
+                                  <option>1</option>
+                                  <option>5</option>
+                                  <option>10</option>
+                                  <option>20</option>
+                                  <option>50+</option>
+                                </select>
+                            </div>
+                              <div class="modal-footer">
+                            <center><button type="submit" class="btn btn-primary btn-block">Submit</button></center>
+                          </div>
+                      </form>
                   
 
 <!-- GOOGLE MAP DISPLAY -->
 <!-- <div id="map"></div>  -->
 
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACmSi9MJVDPc18DJ_PFZkBzulowGn_g8A&callback=initMap">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Em-oYClJZRQKZDkL63wZRT0j5EaKk84&callback=initMap"
+    async defer></script>
 
 {% endblock %}
 </html>
