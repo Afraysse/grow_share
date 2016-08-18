@@ -57,18 +57,6 @@
 
   });
 
-  var currentLocIcon = {
-    path: fontawesome.markers.MAP_MARKER,
-    strokeColor: '#fcf400',
-    strokeOpacity: 1,
-    strokeWeight: 3,
-    fillColor: '#fcf400',
-    fillOpacity: 0.8,
-    scale: 1.4
-  }
-
-  var addTagIcon = {url: '/static/img/#'}
-
 
   // ASSOCIATE STYLED MAP TO MAP ID
 
@@ -76,16 +64,14 @@
   map.setMapTypeId('styled_map');
 
   // SET GEOLOCATION FOR USER
+  var infoWindow = new google.maps.InfoWindow({map: map});
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng( 
-        position.coords.latitude,
-        position.coords.longitude);
-
-      map.setCenter(pos);
-
-      var geolocationMarker = createMarker(pos, currentLocIcon)
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
       infoWindow.setPosition(pos);
       infoWindow.setContent('found you!');
@@ -94,6 +80,7 @@
       handleLocationError(true, infoWindow, map.getCenter());
     });
   } else {
+
     // BROWSER DOESN'T SUPPORT GEOLOCATION
     handleLocationError(false, infoWindow, map.getCenter());
   }
