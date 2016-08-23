@@ -24,6 +24,7 @@ class User(db.Model):
     __tablename__ = "user"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    username = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String, nullable=False)
@@ -49,50 +50,6 @@ class User(db.Model):
         db.session.add(new_user)
         db.session.commit()
 
-class Connections(db.Model):
-    """ Establishes relationship between users. """
-
-    __tablename__ = 'connection'
-
-    connection_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    control_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    connector_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-
-    user = db.relationship("User",
-                            primaryjoin="User.user_id == Connections.control_id",
-                            backref=db.backref("Connections",
-                                                order_by=connection_id))
-
-    def __repr__(self):
-
-        return ("Connection between control_id: \
-                %s and connector_id: %s>") % (self.control_id,
-                                            self.connector_id)
-
-    @classmethod
-    def add_connection(cls, control_id, connector_id):
-
-        new_connection = cls(control_id=control_id, connector_id=connector_id)
-        db.session.add(new_connection)
-        db.session.commit()
-
-class Locations(db.Model):
-    """ Stores location information. """
-
-    __tablename__ = 'location'
-
-    location_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-
-    def __repr__(self):
-
-        return ("<Location %s: latitude:" + 
-                "%s longitude: %s>") % (self.location_id, self.latitude, 
-                                        self.longitude)
-
-# NOTE: need to add helper functions to update 
 
 class Food(db.Model):
     """ Stores food available. """
@@ -101,42 +58,25 @@ class Food(db.Model):
 
     food_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    location_id = db.Column(db.Integer, db.ForeignKey('location.location_id'), nullable=False)
+    
     food_type = db.Column(db.String(50), nullable=False)
-    organic = db.Column(db.Boolean, nullable=False)
     pick_date = db.Column(db.DateTime, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(200), nullable=True)
     posted_date = db.Column(db.DateTime, nullable=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
 
-    # for sharing with other users:
-    shared_with = db.Column(db.String, nullable=False)
-    phone_number = db.Column(db.String, nullable=True)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+
+    # Define Foods relationship to User 
+    user = db.relationship("User", backref=db.backref("foods", order_by=user_id))
 
     def __repr__(self):
 
         return "<Food food_id={} food_type={} quantity={}>".format(self.food_id,
                                                                     self.food_type,
                                                                     self.quantity)
-
-class Messaging(db.Model):
-    """ Stores updated food available. """
-
-    __tablename__ = "messages"
-
-    message_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-    recipiant_id = db.Column(db.Integer, nullable=False)
-    message_sent = db.Column(db.Text, nullable=False)
-    date_sent = db.Column(db.DateTime, nullable=False)
-
-    def __repr__(self):
-
-        return ("<Message id: %s, sender_id: %s, recipiant_id: %s>") % (self.message_id,
-                                                                        self.sender_id,
-                                                                        self.recipiant_id)
-# NOTE: need to add helper functions 
 
 ####################################################################################
 

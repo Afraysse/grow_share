@@ -135,10 +135,38 @@ def render_profile():
     return render_template('dashboard.html')
 
 
-# @app.route('/dashboard', methods=['POST'])
-# def user_profile():
+@app.route('/JSON_food_coords', methods=['GET', 'POST'])
+def query_foods():
 
-#     pass
+    food_type = request.form.get("food_type")
+    food_description = request.form.get("description")
+    latitude = request.form.get("user_latitude")
+    longitude = request.form.get("user_longitude")
+    radius = request.form.get("radius")
+
+    # rectangle_coords = [min_latitude, min_longitude, max_latitude, max_longitude]
+    coords = helper.min_max_latlong(latitude, longitude, radius)
+
+    # queried_foods is a list of objects
+    queried_foods = Food.query.filter(food_type=food_type, Food.latitude>=coords[0], Food.latitude<=coords[2]
+                                                            Food.longitude>=coords[1], Food.longitude<=coords[3])
+
+    foods_found = {
+        Food.food_id: {
+            'food_type': Food.food_type,
+            'description': Food.description,
+            'posted_date': Food.posted_date,
+            'latitude': Food.latitude,
+            'longitude': Food.longitude,
+            'username': Food.user.username
+        } 
+
+        for food in queried_foods
+    }
+
+    return jsonify(foods_found)
+
+
 
 
 ################################################################################################

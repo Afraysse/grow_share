@@ -79,6 +79,20 @@
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
+
+    data = {
+    'user_latitude': lat,
+    'user_longitude': lng,
+    'food_type': $('#foodType'), // map to find in HTML input forms using JQuery
+    'description': $('#keySearchWords'),
+    'radius': $('#distanceSelect')
+    }
+
+    $('#submitFoodRequest').click(function() {
+      $.post('/JSON_food_coords', data, mapFoods(foods));
+
+    });
+
   } else {
 
     // BROWSER DOESN'T SUPPORT GEOLOCATION
@@ -92,6 +106,21 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
 }
+
+// pos = user location 
+// can write the function outside so long as you call the function within where the var is assigned
+
+// mapFoods is the function that takes in the backend info and uses it 
+
+// move to helper js file 
+// mapFoods will use Google Maps API to make 
+
+// function getFoods (evt) {
+//   $.post('/JSON_food_coords', data, mapFoods(foods)) // 3 params =  route, data to backend, what to do with returned data 
+
+// }
+
+
 </script>
 
 <div class="container-fluid">
@@ -107,17 +136,13 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                     <br>
                       <form action="/#" method="post">
                         <div class="form-group">
-                          <label for="exampleInputEmail1">What can we help you find?</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ex: eggs; chicken; lamb">
+                          <label for="foodType">What can we help you find?</label>
+                            <input type="text" class="form-control" id="foodType" aria-describedby="foodTypeInput" placeholder="ex: eggs; chicken; lamb">
                         </div>
                           <div class="form-group">
                             <label for="keySearchWords">Narrow Down Your Search</label>
-                              <input type="keySearch" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
+                              <input type="text" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
                           </div>
-                            <div class="form-group">
-                              <label for="quantityInput">Quantity</label>
-                                <input type="keySearch" class="form-control" id="quantityInput" placeholder="ex: 1 dozen, 10lbs.">
-                            </div>
                             <div class="form-group">
                               <label for="distanceSelect">Distance (in Miles)</label>
                                 <select class="form-control" id="distanceSelect">
@@ -129,7 +154,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                                 </select>
                             </div>
                               <div class="modal-footer">
-                            <center><button type="submit" class="btn btn-primary btn-block">Submit</button></center>
+                            <center><button type="submit" id="submitFoodRequest" class="btn btn-primary btn-block">Submit</button></center>
                           </div>
                       </form>
                   
