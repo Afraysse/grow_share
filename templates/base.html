@@ -20,6 +20,10 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Shrikhand|Vollkorn" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Hairline" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Condensed" rel="stylesheet">
 
 <style>
 
@@ -34,10 +38,11 @@
     background-color: #143C22;
 }
 
-h1, h6, a, i, input {
-    font-family: 'Sansita One';
+h1, h6, a {
+    font-family: 'Permanent Marker', cursive;
     color: #7EB993;
 }
+
 
 h4 {
     font-family: 'Open Sans', sans-serif;
@@ -50,7 +55,8 @@ button {
 }
 
 a {
-    color: #7EB993;
+    color: #000000;
+    font-size: 2em;
 }
 
 .footer {
@@ -60,6 +66,55 @@ a {
 
 body {
     background-color: white;
+}
+
+@media (min-width: 768px) {
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 450px;
+  }
+}
+
+.navbar-default .navbar-brand {
+  color: #000000;
+  font-size: 3em;
+}
+
+label {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.panel-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2em;
+
+}
+
+input {
+  font-family: 'Cabin Condensed', sans-serif;
+
+}
+
+.btn-success-outline{
+  border: 3px solid #79B694;
+  font-family: 'Permanent Marker', cursive;
+  /*color:#fcf400;*/
+  color:#000000;
+  background-color: #79B694;
+}
+
+.btn-success-outline:hover {
+    color: #79B694;
+    background-color: #0F5B30;
+    border-color: #0F5B30;
+}
+
+.btn-success-outline:active {
+  color: #0F5B30;
+  box-shadow: none;
+}
+
+.btn-success-outline:focus {
+  background-color: #79B694;
 }
 
 </style>
@@ -85,7 +140,6 @@ body {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="#"><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -101,7 +155,6 @@ body {
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 
 {% block content %} put content here {% endblock %}
 

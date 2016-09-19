@@ -1,84 +1,64 @@
+var map;
 
-/* FUNCTIONS FOR MAP ON DASHBOARD.HTML */
+var newMarkersArray = [];
+var allMarkersArray =[];
 
- function initMap() {
-
-  var styledMapType = new google.maps.StyledMapType(
-    [
-      { 
-        stylers: [
-          { hue: '#00ffe6'},
-          { saturation: -20 }
-        ]
-      }, {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [
-          { lightness: 100},
-          { visibility: 'simplified'}
-        ]
-      }, {
-        featureType: 'road',
-        elementType: 'labels',
-        stylers: [
-          {visibility: 'off'}
-        ]
-      }
-    ],
-    {name: 'Styled Map'});
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    scrollwheel: true,
-    zoom: 14,
-    zoomControl: true,
-    panControl: false,
-    mapTypeControlOptions: {
-      mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-                    'styled_map']
-    }
-
-  });
+var lat;
+var lng;
 
 
-  // ASSOCIATE STYLED MAP TO MAP ID
+function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          // center: {lat: -34.397, lng: 150.644},
+          zoom: 15
+        });
 
-  map.mapTypes.set('styled_map', styledMapType);
-  map.setMapTypeId('styled_map');
+        var currentLocIcon = {
+          path: fontawesome.markers.MAP_MARKER,
+          strokeColor: '#339933',
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          fillColor: '#339933',
+          fillOpacity: 0.8,
+          scale: 1.4
+        }
 
-  // SET GEOLOCATION FOR USER
-  var infoWindow = new google.maps.InfoWindow({map: map});
+        var addTagIcon = {url: '/static/img/mark_1.JPG'}
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+        // var infoWindow = new google.maps.InfoWindow({map: map});
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('found you!');
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
+        // HTML 5 GEOLOCATION 
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
 
-    // BROWSER DOESN'T SUPPORT GEOLOCATION
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-}
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            map.setCenter(pos);
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-}
+            // write createMarker function in page.js
+            var geolocationMarker = createMarker(pos, currentLocIcon);
 
+            // write clearClickMarker in page.js
+            // write setIcon in page.js
+            // write handleNoGeolocation in page.js
+            // write geolocationMarker in page.js
+            
+            google.maps.event.addListener(geolocationMarker, 'click', function(event){
+              clearClickMarker();
+              geolocationMarker.setIcon(addTagIcon);
+            })
 
+            google.maps.event.addListener(map, 'click', function(event){
+              geolocationMarker.setIcon(currentLocIcon);
+            })
+          }, function() {
+            handleNoGeolocation(true);
 
-
+        });
 
 
 

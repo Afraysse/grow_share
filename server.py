@@ -14,7 +14,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, flash, redirect, request, jsonify, url_for, session
 from flask_debugtoolbar import DebugToolbarExtension 
 
-from model import connect_to_db, db, User, Connections, Food, Locations, Messaging
+from model import connect_to_db, db, User, Food
 
 # Import SQLAlchemy exception error to use in try/except
 from sqlalchemy.orm.exc import NoResultFound
@@ -48,38 +48,20 @@ def index():
 def login():
     """ Processes login. """
 
-    login_email = request.form.get("email")
-    login_password = request.form.get("password")
+    email = request.form.get("email")
+    password = request.form.get("password")
 
-    # try to see if credentials put in work
-    # if incorrect, ask to try again 
-    # if correct, log in user and store to session and grab friend information 
-    try:
-        current_user = db.session.query(User).filter(User.email == login_email,
-                                                    User.password == login_password).one()
+    user = User.query.filter_by(email=email).first()
 
-    except NoResultFound:
-        flash("We can't seem to find you! Please try again.", "Danger Will Robinson!")
+    if not user:
+        flash("User not found! Please register!")
         return redirect('/')
 
-    # Acquire current user's friend information to display in badges on page
+    if user.password != password:
+        flash("Incorrect password! Please try again.")
+        return redirect('/')
 
-    # received_friend_requests, sent_friend_requests = get_friend_requests(current_user.user_id)
-    # receieved_request_count = len(received_friend_requests)
-    # sent_request_count = len(sent_friend_requests)
-    # total_request_count = receieved_request_count + sent_request_count
-
-    # a nested dictionary stores more to the session than simply the user_id
-
-    session["current_user"] = {
-        "first_name": current_user.first_name,
-        "user_id": current_user.user_id,
-        # "receieved_request_count": receieved_request_count,
-        # "sent_request_count": sent_request_count,
-        # "total_request_count": total_request_count
-    }
-
-    # flash("Hello {}. You have successfully logged in!").format(current_user.first_name)
+    session["user_id"] = user.user_id
     
     return redirect("/dashboard")
 
@@ -90,7 +72,7 @@ def register():
 
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
-    description = request.form.get("description")
+    username = request.form.get("username")
     signup_email = request.form.get("signup_email")
     signup_password = request.form.get("signup_password")
     
@@ -105,8 +87,8 @@ def register():
     except NoResultFound:
         new_user = User(first_name=first_name,
                         last_name=last_name,
+                        username=username,
                         email=signup_email,
-                        description=description,
                         password=signup_password
                         )
 
@@ -131,6 +113,7 @@ def register():
 
 @app.route('/dashboard', methods=['GET'])
 def render_profile():
+    """ Renders dashboard. """
 
     return render_template('dashboard.html')
 
@@ -148,8 +131,9 @@ def query_foods():
     coords = helper.min_max_latlong(latitude, longitude, radius)
 
     # queried_foods is a list of objects
-    queried_foods = Food.query.filter(food_type=food_type, Food.latitude>=coords[0], Food.latitude<=coords[2]
-                                                            Food.longitude>=coords[1], Food.longitude<=coords[3])
+    queried_foods = Food.query.filter(food_type=food_type)
+
+    # latitude=coords[0], latitude=coords[2],longitude=coords[1], longitude=coords[3]
 
     foods_found = {
         Food.food_id: {
@@ -166,7 +150,35 @@ def query_foods():
 
     return jsonify(foods_found)
 
+@app.route('/new_tag.json', methods=["POST"])
+def handle_add_tag():
+    """ Add a new tag to the db."""
 
+    latitude = request.form.get('latitude'),
+    longitude = request.form.get('longitude'),
+    food_type = request.form.get('food_type'),
+    quantity = request.form.get('quantity'),
+    description = request.form.get('description'),
+    key_words = request.form.get('key_words')
+
+    user_id = session.get('user_id')
+
+    tag = helper.add_tag_to_db(user_id,latitude,longitude,food_type,quantity,description,key_words)
+
+    print tag 
+
+    new_tag = {
+        "user_id": tag.user_id,
+        "tagId": tag.tag_id,
+        "latitude": tag.latitude,
+        "longitude": tag.longitude,
+        "food_type": tag.food_type,
+        "quantity": tag.quantity,
+        "description": tag.description,
+        "key_words": tag.key_words
+    }
+
+    return jsonify(new_tag)
 
 
 ################################################################################################

@@ -28,10 +28,7 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String, nullable=False)
-    description = db.Column(db.String(200), nullable=True)
     password = db.Column(db.String, nullable=False)
-
-    search_vector = db.Column(TSVectorType('first_name', 'last_name'))
 
     def __repr__(self):
 
@@ -42,13 +39,21 @@ class User(db.Model):
     def add_new_user(cls, first_name, last_name, email, age, password=None):
 
         new_user = cls(first_name=first_name,
+                        username=username,
                         last_name=last_name,
                         email=email,
-                        age=age,
                         password=password)
 
         db.session.add(new_user)
         db.session.commit()
+
+    def to_dict(self):
+        return {
+        'user_id': self.user_id,
+        'name': '%s %s' % (self.first_name, self.last_name),
+        'email': self.email,
+        'age': self.age
+        }
 
 
 class Food(db.Model):
@@ -60,11 +65,12 @@ class Food(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     
     food_type = db.Column(db.String(50), nullable=False)
-    pick_date = db.Column(db.DateTime, nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    # pick_date = db.Column(db.DateTime, nullable=False)
+    quantity = db.Column(db.String, nullable=False)
     description = db.Column(db.String(200), nullable=True)
-    posted_date = db.Column(db.DateTime, nullable=False)
-    active = db.Column(db.Boolean, nullable=False, default=True)
+    # posted_date = db.Column(db.DateTime, nullable=False)
+    # active = db.Column(db.Boolean, nullable=False, default=True)
+    key_words = db.Column(db.String, nullable=True)
 
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
@@ -77,6 +83,7 @@ class Food(db.Model):
         return "<Food food_id={} food_type={} quantity={}>".format(self.food_id,
                                                                     self.food_type,
                                                                     self.quantity)
+
 
 ####################################################################################
 
