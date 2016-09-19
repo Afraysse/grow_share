@@ -39,14 +39,11 @@ function initMap() {
             // infoWindow.setContent('Location found.');
             map.setCenter(pos);
 
-            // write createMarker function in page.js
+            // write createMarker function later on!!!!
             var geolocationMarker = createMarker(pos, currentLocIcon);
 
-            // write clearClickMarker in page.js
-            // write setIcon in page.js
-            // write handleNoGeolocation in page.js
-            // write geolocationMarker in page.js
-            
+
+            // setIcon() is called on the marker to customize marker --> per GMAPI
             google.maps.event.addListener(geolocationMarker, 'click', function(event){
               clearClickMarker();
               geolocationMarker.setIcon(addTagIcon);

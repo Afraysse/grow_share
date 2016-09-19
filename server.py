@@ -118,14 +118,22 @@ def render_profile():
     return render_template('dashboard.html')
 
 
+# @app.route('/JSON_food_tags', methods=["GET", "POST"])
+# def q_tags():
+
+#     latitude = request.form.get('latitude') #from maps.js
+#     longitude = request.form.get('longitude') #from maps.js
+#     radius = request.form.get('radius') #from dashboard.html --> user input: distance
+
+
 @app.route('/JSON_food_coords', methods=['GET', 'POST'])
 def query_foods():
 
-    food_type = request.form.get("food_type")
-    food_description = request.form.get("description")
-    latitude = request.form.get("user_latitude")
-    longitude = request.form.get("user_longitude")
-    radius = request.form.get("radius")
+    food_type = request.form.get("food_type") #from dashboard.html
+    key_words = request.form.get("key_words") #from dashboard.html
+    latitude = request.form.get("latitude") #from maps.js
+    longitude = request.form.get("longitude") #from maps.js
+    radius = request.form.get("radius") #from dashboard.html
 
     # rectangle_coords = [min_latitude, min_longitude, max_latitude, max_longitude]
     coords = helper.min_max_latlong(latitude, longitude, radius)
@@ -150,35 +158,35 @@ def query_foods():
 
     return jsonify(foods_found)
 
-@app.route('/new_tag.json', methods=["POST"])
-def handle_add_tag():
-    """ Add a new tag to the db."""
+# @app.route('/new_tag.json', methods=["POST"])
+# def handle_add_tag():
+#     """ Add a new tag to the db."""
 
-    latitude = request.form.get('latitude'),
-    longitude = request.form.get('longitude'),
-    food_type = request.form.get('food_type'),
-    quantity = request.form.get('quantity'),
-    description = request.form.get('description'),
-    key_words = request.form.get('key_words')
+#     latitude = request.form.get('latitude'),
+#     longitude = request.form.get('longitude'),
+#     food_type = request.form.get('food_type'),
+#     quantity = request.form.get('quantity'),
+#     description = request.form.get('description'),
+#     key_words = request.form.get('key_words')
 
-    user_id = session.get('user_id')
+#     user_id = session.get('user_id')
 
-    tag = helper.add_tag_to_db(user_id,latitude,longitude,food_type,quantity,description,key_words)
+#     tag = helper.add_tag_to_db(user_id,latitude,longitude,food_type,quantity,description,key_words)
 
-    print tag 
+#     print tag 
 
-    new_tag = {
-        "user_id": tag.user_id,
-        "tagId": tag.tag_id,
-        "latitude": tag.latitude,
-        "longitude": tag.longitude,
-        "food_type": tag.food_type,
-        "quantity": tag.quantity,
-        "description": tag.description,
-        "key_words": tag.key_words
-    }
+#     new_tag = {
+#         "user_id": tag.user_id,
+#         "tagId": tag.tag_id,
+#         "latitude": tag.latitude,
+#         "longitude": tag.longitude,
+#         "food_type": tag.food_type,
+#         "quantity": tag.quantity,
+#         "description": tag.description,
+#         "key_words": tag.key_words
+#     }
 
-    return jsonify(new_tag)
+#     return jsonify(new_tag)
 
 
 ################################################################################################
