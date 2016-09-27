@@ -133,7 +133,7 @@ def query_foods():
     key_words = request.form.get("key_words") #from dashboard.html
     latitude = request.form.get("latitude") #from maps.js
     longitude = request.form.get("longitude") #from maps.js
-    radius = request.form.get("radius") #from dashboard.html
+    radius = request.form.get("distance") #from dashboard.html
 
     # rectangle_coords = [min_latitude, min_longitude, max_latitude, max_longitude]
     coords = helper.min_max_latlong(latitude, longitude, radius)
@@ -145,6 +145,7 @@ def query_foods():
 
     foods_found = {
         Food.food_id: {
+            'title': Food.title,
             'food_type': Food.food_type,
             'description': Food.description,
             'posted_date': Food.posted_date,

@@ -64,6 +64,7 @@ class Food(db.Model):
     food_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     
+    title = db.Column(db.String(30), nullable=False)
     food_type = db.Column(db.String(50), nullable=False)
     # pick_date = db.Column(db.DateTime, nullable=False)
     quantity = db.Column(db.String, nullable=False)

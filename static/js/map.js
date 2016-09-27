@@ -57,6 +57,22 @@ function initMap() {
 
         });
 
+        // v|v|v|v|v|v|v|v|v|v| SHOW POINTS FROM ORIGIN v|v|v|v|v|v|v|v|v|v|v|v|
+        google.maps.event.addListener(map, 'tilesloaded', function() {
+          var data = {
+            'user_latitude': map.lat(),
+            'user_longitude': map.lng()
+          };
+
+          $.post('/JSON_food_coords', data, function(query_foods) {
+            displayTags(query_foods);
+
+          // $('div.')
+
+          });
+
+        });
+
 
 
 

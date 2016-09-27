@@ -27,18 +27,18 @@
                 <div class="panel-heading">
                   <center><div class="panel-title"><i>Search & Discover</i></div></center>
                   <br>
-                  <form action="/#" method="post">
+                  <form action="/JSON_food_coords" method="post">
                         <div class="form-group">
                           <label for="foodType">Food/Produce Type</label>
-                            <input type="text" class="form-control" id="foodType" aria-describedby="foodTypeInput" placeholder="ex: eggs; chicken; lamb">
+                            <input type="text" class="form-control" id="food_type" aria-describedby="foodTypeInput" placeholder="ex: eggs; chicken; lamb">
                         </div>
                           <div class="form-group">
                             <label for="keySearchWords">Search Terms</label>
-                              <input type="text" class="form-control" id="keySearchWords" placeholder="ex: organic; free-range; all-natural">
+                              <input type="text" class="form-control" id="key_words" placeholder="ex: organic; free-range; all-natural">
                           </div>
                             <div class="form-group">
                               <label for="distanceSelect">Distance (in Miles)</label>
-                                <select class="form-control" id="distanceSelect">
+                                <select class="form-control" id="radius">
                                   <option>5</option>
                                   <option>15</option>
                                   <option>25</option>
@@ -48,11 +48,11 @@
                               <div class="modal-footer">
                             <center><button type="submit" id="submitFoodRequest" style="width: 200px" class="btn btn-success-outline">Submit</button></center>
                             <br>
+                        </form>
 
                             <!-- NEW POST MODAL TRIGGER --> 
                             <center><button id="myPostButton" type="button" style="width: 200px" class="btn btn-success-outline" data-toggle="modal" data-target="#newPostModal">Make Your Own Post!</button>
-                          </div>
-                      </form>
+                        </div><!-- /. modal-footer -->
                 </div>
               </div>
             </div>
@@ -68,10 +68,15 @@
                 <div class="panel-heading">
                   <center><div class="panel-title"><i>Results</i></div></center>
                     <br>
-                    </div><!-- /. panel-heading -->
-                  </div><!-- /. panel panel-default -->
-                </div><!-- /. panel-group -->
-              </div><!-- /. col-sm-4 -->
+
+                    <div class="list-group">
+                      <div class="list-group-item" id="tag-div-item"></div>
+                    </div><!-- /. list-group -->
+                    
+                  </div><!-- /. panel-heading -->
+                </div><!-- /. panel panel-default -->
+              </div><!-- /. panel-group -->
+            </div><!-- /. col-sm-4 -->
 
 <!-- NEW POST MODAL -->
 <div class="authentication">
