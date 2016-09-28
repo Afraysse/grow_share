@@ -115,7 +115,35 @@ def register():
 def render_profile():
     """ Renders dashboard. """
 
-    return render_template('dashboard.html')
+    food_tags = Food.query.filter_by(user_id=user.user_id).all() 
+
+    return render_template('dashboard.html',
+                                 food_tags=food_tags)
+
+@app.route('/new_post', methods=['POST'])
+def new_post_db():
+
+    title = request.form.get('food_title')
+    food_type = request.form.get('food_type')
+    quantity = request.form.get('quantity')
+    description = request.form.get('description')
+    key_words = request.form.get('key_words')
+    user_id = session['user_id']
+
+    if user_id:
+
+        tag = Food(title=title, food_type=food_type,
+                    quantity=quantity, description=description,
+                    key_words=key_words, user_id=user_id)
+
+        db.session.add(tag)
+        db.session.commit()
+
+    else:
+        flash('Please login!')
+
+    return redirect('/dashboard')
+
 
 
 # @app.route('/JSON_food_tags', methods=["GET", "POST"])

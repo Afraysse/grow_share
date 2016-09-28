@@ -1,33 +1,93 @@
-var map;
-
-var newMarkersArray = [];
-var allMarkersArray =[];
-
-var lat;
-var lng;
-
 
 function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          // center: {lat: -34.397, lng: 150.644},
-          zoom: 15
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 11,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#000000'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+
         });
+        var infoWindow = new google.maps.InfoWindow({map: map});
 
-        var currentLocIcon = {
-          path: fontawesome.markers.MAP_MARKER,
-          strokeColor: '#339933',
-          strokeOpacity: 1,
-          strokeWeight: 3,
-          fillColor: '#339933',
-          fillOpacity: 0.8,
-          scale: 1.4
-        }
-
-        var addTagIcon = {url: '/static/img/mark_1.JPG'}
-
-        // var infoWindow = new google.maps.InfoWindow({map: map});
-
-        // HTML 5 GEOLOCATION 
+        // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -35,44 +95,21 @@ function initMap() {
               lng: position.coords.longitude
             };
 
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
             map.setCenter(pos);
-
-            // write createMarker function later on!!!!
-            var geolocationMarker = createMarker(pos, currentLocIcon);
-
-
-            // setIcon() is called on the marker to customize marker --> per GMAPI
-            google.maps.event.addListener(geolocationMarker, 'click', function(event){
-              clearClickMarker();
-              geolocationMarker.setIcon(addTagIcon);
-            })
-
-            google.maps.event.addListener(map, 'click', function(event){
-              geolocationMarker.setIcon(currentLocIcon);
-            })
           }, function() {
-            handleNoGeolocation(true);
-
-        });
-
-        // v|v|v|v|v|v|v|v|v|v| SHOW POINTS FROM ORIGIN v|v|v|v|v|v|v|v|v|v|v|v|
-        google.maps.event.addListener(map, 'tilesloaded', function() {
-          var data = {
-            'user_latitude': map.lat(),
-            'user_longitude': map.lng()
-          };
-
-          $.post('/JSON_food_coords', data, function(query_foods) {
-            displayTags(query_foods);
-
-          // $('div.')
-
+            handleLocationError(true, infoWindow, map.getCenter());
           });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
 
-        });
-
-
-
-
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }

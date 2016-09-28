@@ -66,15 +66,16 @@ class Food(db.Model):
     
     title = db.Column(db.String(30), nullable=False)
     food_type = db.Column(db.String(50), nullable=False)
-    # pick_date = db.Column(db.DateTime, nullable=False)
     quantity = db.Column(db.String, nullable=False)
     description = db.Column(db.String(200), nullable=True)
+    key_words = db.Column(db.String, nullable=True)
+    # pick_date = db.Column(db.DateTime, nullable=False)
     # posted_date = db.Column(db.DateTime, nullable=False)
     # active = db.Column(db.Boolean, nullable=False, default=True)
-    key_words = db.Column(db.String, nullable=True)
 
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
+
+    # latitude = db.Column(db.Float, nullable=False)
+    # longitude = db.Column(db.Float, nullable=False)
 
     # Define Foods relationship to User 
     user = db.relationship("User", backref=db.backref("foods", order_by=user_id))
