@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script src="/static/js/fontawesome-markers.min.js"></script>
 <script src="/static/js/page.js"></script>
 <script src="/static/js/map.js"></script>
+<script src="/static/js/fontawesome-markers.min.js"></script>
 
 <!-- SEARCH PANEL --> 
 
@@ -32,6 +32,10 @@
 p {
   font-family: 'Permanent Marker', cursive;
 
+}
+
+h1, h6 {
+  color: #000000;
 }
 
 </style>
@@ -82,16 +86,39 @@ p {
       </div><!-- /. map container -->
 
         <div class="col-xs-12 col-md-4">
-            <div class="panel-group">
+            <div class="panel-group" style="height: 600px;">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <center><div class="panel-title"><i>Results</i></div></center>
                     <br>
-
+                    {% if recent_tags %}
                     <div class="list-group">
-                      <div class="list-group-item" id="tag-div-item"></div>
+                      {% for tag in recent_tags %}
+                        <div class="media">
+                          <div class="media-left">
+                            {% if tag.food_id == 1 %}
+                            <img class="media-object" src="/static/img/apples.jpg" alt="image for post" width="42" height="42">
+                            {% elif tag.food_id == 2 %}
+                            <img class="media-object" src="/static/img/farm-fresh-eggs.jpg" alt="image for post" width="42" height="42">
+                            {% elif tag.food_id == 3 %}
+                            <img class="media-object" src="/static/img/duck_meat.jpg" alt="image for post" width="42" height="42">
+                            {% endif %}
+                          </div><!-- /. media-left --> 
+                          <div class="media-body">
+                            <h4 class="media-heading"><b>{{ tag.title }}</b></h4>
+                            <h6 class="media-content">{{ tag.food_type }}</h6>
+                            <h6 class="media-content">Quantity: {{ tag.quantity }}</h6>
+                        </div><!-- /. media-body -->
+                        <div class="media-right">
+                          <button id="myPostButton" type="button" style="width: 90px" class="btn btn-success-outline" data-toggle="modal" data-target="#messageModal">Message</button>
+                      </div><!-- /. media --> 
+                      {% endfor %}
                     </div><!-- /. list-group -->
-                    
+                    {% else %}
+                    <ul class="list-group">
+                      <li class="list-group-item"> No breadcrumbs left yet. </li> 
+                    </ul>
+                    {% endif %}
                   </div><!-- /. panel-heading -->
                 </div><!-- /. panel panel-default -->
               </div><!-- /. panel-group -->
@@ -109,7 +136,7 @@ p {
             <h4 class="modal-title" id="modalLabel">Join in the Sharing!</h4>
           </div>
           <div class="modal-body">
-            <form action="/new_post" method='post'>
+            <form action="/new-post.json" method='post'>
                 <label for="food_title"> Food Title </label>
                     <input type="text" class="form-control" id="food_title" name="food_title" placeholder="Fresh Apples!" required autofocus>
                     <br>

@@ -2,90 +2,12 @@
 function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 11,
-          styles: [
-            {elementType: 'geometry', stylers: [{color: '#000000'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-            {
-              featureType: 'administrative.locality',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'geometry',
-              stylers: [{color: '#263c3f'}]
-            },
-            {
-              featureType: 'poi.park',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#6b9a76'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry',
-              stylers: [{color: '#38414e'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#212a37'}]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#9ca5b3'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry',
-              stylers: [{color: '#746855'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'geometry.stroke',
-              stylers: [{color: '#1f2835'}]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#f3d19c'}]
-            },
-            {
-              featureType: 'transit',
-              elementType: 'geometry',
-              stylers: [{color: '#2f3948'}]
-            },
-            {
-              featureType: 'transit.station',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#d59563'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry',
-              stylers: [{color: '#17263c'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{color: '#515c6d'}]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{color: '#17263c'}]
-            }
-          ]
-
+          zoom: 11
         });
-        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        var infoWindow = new google.maps.InfoWindow({
+          maxWidth: 250
+        });
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -96,7 +18,7 @@ function initMap() {
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('found you!');
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -105,7 +27,7 @@ function initMap() {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
-      }
+    }
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -113,3 +35,46 @@ function initMap() {
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
       }
+
+      // v|v|v|v|v|v|v|v|v|v| NEARBY POINTS ON LOAD v|v|v|v|v|v|v|v|v|v|v|v|v|v|
+
+      // var iconImage = '/static/img/map_marker.png';
+
+      // $.get(tags_json, function (tags) {
+      //   // For every tag_food entry in db, specify details and place markers.
+      //   for (var key in tags) {
+      //     var tag = tags[key];
+
+      //     var foodTagDetails = '<div class="media">' + 
+      //     '<div class="media-left">' +
+      //     '<img class="media-object" src="' + tag.imgage + '" alt="Image for' + tag.title + '">' +
+      //     '</div>' + 
+      //     '<div class="media-body">' + 
+      //     '<h5 class="media-heading">' + tag.title + '</h5>' +
+      //     '</div>' + 
+      //     '</div>';
+
+      //     // Specify marker coordinates with the restaurant's coordinates
+      //     var markerLatLng = {lat: pos.lat, lng: pos.lng};
+
+      //     var marker = new google.maps.Marker({
+      //       position: markerLatLng,
+      //       map: map,
+      //       title: 'Sale: ' + tag.title,,
+      //       html: foodTagDetails,
+      //       icon: iconImage
+
+      //     });
+
+      //   } 
+
+      // });
+
+
+
+
+
+
+
+
+
