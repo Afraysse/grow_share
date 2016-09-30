@@ -145,6 +145,7 @@ input {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li>{% if session.get('user_id') %}<a href="/dashboard">Dashboard</a></li>
         <li><h6><a href="#">Logout</a></h6></li>
       </ul>
     </div><!-- /.navbar-collapse -->
