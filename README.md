@@ -1,11 +1,7 @@
 TRENDTUBE
 ---
 
-<img src="/static/img/login.jpg" width="400">
-<img src="/static/img/dashboard.jpg" width="400">
-
-
-# GrowShare 
+<img src="/static/img/login.jpg" width="500">
 
 GrowShare is a Flask web app dedicated to helping user's find local produce in their area. Employing the Google Maps JavaScript API for geolocation purposes, GrowShare permits users to search for food type, key words and distance, using SQLAlchemy to query the Postgres database and returning search results. 
 
