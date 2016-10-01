@@ -40,7 +40,7 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Homepage with login/registration. """
 
-    current_session = session.get('user_id', None)
+    current_session = session.get('current_user', None)
     return render_template("landing.html")
 
 
