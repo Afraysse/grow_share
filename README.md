@@ -1,5 +1,5 @@
 
-<img align="center" src="/static/img/login.jpg" width="500"><img align="center" src="/static/img/dashboard.jpg" width="500">
+<img align="center" src="/static/img/login.jpg" width="300"><img align="center" src="/static/img/dashboard.jpg" width="300">
 
 # GrowShare 
 
