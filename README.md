@@ -1,5 +1,9 @@
+TRENDTUBE
+---
 
-<img align="center" src="/static/img/login.jpg" width="300"><img align="center" src="/static/img/dashboard.jpg" width="300">
+<img src="/static/img/login.jpg" width="400">
+<img src="/static/img/dashboard.jpg" width="400">
+
 
 # GrowShare 
 
